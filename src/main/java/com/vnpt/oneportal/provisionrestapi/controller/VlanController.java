@@ -17,7 +17,7 @@ public class VlanController {
 
     private final VlanService vlanService;
 
-    //GET /provisions/vlans/vlannetworks?region=5&pageSize=10&pageNumber=1&projectId=864
+    //GET /provisions/vlans/vlannetworks?region=5&pageSize=10&pageNumber=1&projectId=864&customerId=153
     @GetMapping("/vlannetworks")
     public ResponseEntity<PageResponse<VlanResponse>> getListVlan(@ModelAttribute VlanRequest request) {
         return ResponseEntity.ok(vlanService.getListVlan(request));

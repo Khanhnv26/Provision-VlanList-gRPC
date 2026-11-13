@@ -24,9 +24,9 @@ public class VlanServiceImpl implements VlanService {
     public PageResponse<VlanResponse> getListVlan(VlanRequest request) {
         GetListVlanRequest.Builder requestBuilder = GetListVlanRequest.newBuilder();
 
-        // Trên production customerId được lấy từ Token (153), hỗ trợ truyền trực tiếp hoặc mặc định 153 khi test local
-        int customerId = request.getCustomerId() != null ? request.getCustomerId() : 153;
-        requestBuilder.setCustomerId(customerId);
+        if (request.getCustomerId() != null) {
+            requestBuilder.setCustomerId(request.getCustomerId());
+        }
 
         Integer region = request.getEffectiveRegionId();
         if (region != null) {
@@ -42,17 +42,7 @@ public class VlanServiceImpl implements VlanService {
                 .map(this::mapToVlanResponse)
                 .toList();
 
-        int pageSize = request.getPageSize() != null ? request.getPageSize() : 10;
-        int currentPage = request.getPageNumber() != null ? request.getPageNumber() : 1;
-        int previousPage = Math.max(0, currentPage - 1);
-
-        return PageResponse.<VlanResponse>builder()
-                .totalCount(list.size())
-                .records(list)
-                .pageSize(pageSize)
-                .currentPage(currentPage)
-                .previousPage(previousPage)
-                .build();
+        return buildPageResponse(list, request.getPageSize(), request.getPageNumber(), 10, 1);
     }
 
     @Override
@@ -86,13 +76,22 @@ public class VlanServiceImpl implements VlanService {
                 .map(proto -> mapToVlanSubnetFlat(proto, projectId))
                 .toList();
 
-        int pageSize = request.getPageSize() != null ? request.getPageSize() : 1000;
-        int currentPage = request.getPageNumber() != null ? request.getPageNumber() : 0;
+        return buildPageResponse(list, request.getPageSize(), request.getPageNumber(), 1000, 0);
+    }
+
+    private <T> PageResponse<T> buildPageResponse(
+            List<T> records,
+            Integer requestedPageSize,
+            Integer requestedPageNumber,
+            int defaultPageSize,
+            int defaultPageNumber) {
+        int pageSize = requestedPageSize != null ? requestedPageSize : defaultPageSize;
+        int currentPage = requestedPageNumber != null ? requestedPageNumber : defaultPageNumber;
         int previousPage = Math.max(0, currentPage - 1);
 
-        return PageResponse.<VlanSubnetResponse>builder()
-                .totalCount(list.size())
-                .records(list)
+        return PageResponse.<T>builder()
+                .totalCount(records.size())
+                .records(records)
                 .pageSize(pageSize)
                 .currentPage(currentPage)
                 .previousPage(previousPage)
@@ -140,18 +139,8 @@ public class VlanServiceImpl implements VlanService {
                 .networkCloudId(proto.hasNetworkCloudId() ? proto.getNetworkCloudId().getValue() : null)
                 .usedBy(proto.hasUsedBy() ? proto.getUsedBy().getValue() : null)
                 .parentId(proto.hasParentId() ? proto.getParentId().getValue() : null)
-                .allocationPools(proto.getAllocationPoolsCount() > 0 ? proto.getAllocationPoolsList().stream()
-                        .map(p -> VlanSubnetResponse.AllocationPoolDto.builder()
-                                .start(p.hasStart() ? p.getStart().getValue() : null)
-                                .end(p.hasEnd() ? p.getEnd().getValue() : null)
-                                .build())
-                        .toList() : null)
-                .hostRouters(proto.getHostRoutersCount() > 0 ? proto.getHostRoutersList().stream()
-                        .map(r -> VlanSubnetResponse.HostRouterDto.builder()
-                                .destinationCidr(r.hasDestinationCidr() ? r.getDestinationCidr().getValue() : null)
-                                .nextHop(r.hasNextHop() ? r.getNextHop().getValue() : null)
-                                .build())
-                        .toList() : null)
+                .allocationPools(mapAllocationPools(proto.getAllocationPoolsList()))
+                .hostRouters(mapHostRouters(proto.getHostRoutersList()))
                 .build();
     }
 
@@ -169,30 +158,20 @@ public class VlanServiceImpl implements VlanService {
                 .customerId(proto.hasCustomerId() ? proto.getCustomerId().getValue() : null)
                 .mayAoGan(proto.hasMayAoGan() ? proto.getMayAoGan().getValue() : null)
                 .networkId(networkId)
-                .allocationPools(proto.getAllocationPoolsCount() > 0 ? proto.getAllocationPoolsList().stream()
-                        .map(p -> VlanSubnetResponse.AllocationPoolDto.builder()
-                                .start(p.hasStart() ? p.getStart().getValue() : null)
-                                .end(p.hasEnd() ? p.getEnd().getValue() : null)
-                                .build())
-                        .toList() : null)
-                .hostRouters(proto.getHostRoutersCount() > 0 ? proto.getHostRoutersList().stream()
-                        .map(r -> VlanSubnetResponse.HostRouterDto.builder()
-                                .destinationCidr(r.hasDestinationCidr() ? r.getDestinationCidr().getValue() : null)
-                                .nextHop(r.hasNextHop() ? r.getNextHop().getValue() : null)
-                                .build())
-                        .toList() : null)
+                .allocationPools(mapAllocationPools(proto.getAllocationPoolsList()))
+                .hostRouters(mapHostRouters(proto.getHostRoutersList()))
                 .enableDhcp(proto.hasEnableDhcp() ? proto.getEnableDhcp().getValue() : null)
                 .networkName(proto.hasNetworkName() ? proto.getNetworkName().getValue() : null)
                 .gatewayIp(proto.hasGatewayIp() ? proto.getGatewayIp().getValue() : null)
                 .usedBy(proto.hasUsedBy() ? proto.getUsedBy().getValue() : null)
                 .cloudId(cloudId)
                 .vlanId(networkId)
-                .adminState(false)
-                .shared(false)
+                .adminState(null)
+                .shared(null)
                 .type(null)
-                .subnetAddressRequired(proto.hasNetworkAddress() ? proto.getNetworkAddress().getValue() : "192.168.0.0/24")
-                .status("KHOITAO")
-                .vpcId(vpcId != null ? vpcId : 864)
+                .subnetAddressRequired(proto.hasNetworkAddress() ? proto.getNetworkAddress().getValue() : null)
+                .status(proto.hasStatus() ? proto.getStatus().getValue() : null)
+                .vpcId(vpcId)
                 .region(null)
                 .regionText(null)
                 .subnets(null)
@@ -200,5 +179,29 @@ public class VlanServiceImpl implements VlanService {
                 .parentId(proto.hasParentId() ? proto.getParentId().getValue() : null)
                 .wanShare(null)
                 .build();
+    }
+
+    private List<VlanSubnetResponse.AllocationPoolDto> mapAllocationPools(List<GrpcVpcSubnetAllocationPool> pools) {
+        if (pools.isEmpty()) {
+            return null;
+        }
+        return pools.stream()
+                .map(p -> VlanSubnetResponse.AllocationPoolDto.builder()
+                        .start(p.hasStart() ? p.getStart().getValue() : null)
+                        .end(p.hasEnd() ? p.getEnd().getValue() : null)
+                        .build())
+                .toList();
+    }
+
+    private List<VlanSubnetResponse.HostRouterDto> mapHostRouters(List<GrpcVpcRouteConfig> routes) {
+        if (routes.isEmpty()) {
+            return null;
+        }
+        return routes.stream()
+                .map(r -> VlanSubnetResponse.HostRouterDto.builder()
+                        .destinationCidr(r.hasDestinationCidr() ? r.getDestinationCidr().getValue() : null)
+                        .nextHop(r.hasNextHop() ? r.getNextHop().getValue() : null)
+                        .build())
+                .toList();
     }
 }
