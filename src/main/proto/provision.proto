@@ -1,0 +1,1565 @@
+﻿syntax = "proto3";
+
+import "google/protobuf/wrappers.proto";
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/empty.proto";
+
+option csharp_namespace = "ProvisionsGrpc";
+option java_package = "provision.grpc";
+option java_multiple_files = true;
+
+package Provisions.Grpc;
+
+service Provisions {
+  rpc GetInstanceInfo(GetInstanceInfoRequest) returns (GetInstanceInfoResponse){}
+  rpc GetInstanceDetail(GetInstanceDetailRequest) returns (GetInstanceInfoResponse){}
+  rpc GetInstanceByIPPublic(GetInstanceByIPPublicRequest) returns (GetInstanceInfoResponse){}
+  rpc GetInstanceStatusPrometheus(GetInstanceStatusPrometheusRequest) returns (GetInstanceStatusPrometheusResponse){}
+  rpc GetInstanceResizeHistory(GetInstanceInfoRequest) returns (GetInstanceResizeHistoryResponse){}
+
+  rpc GetVolumeInfo(GetVolumeInfoRequest) returns (GetVolumeInfoResponse){}
+  rpc GetVolumeByIds(GetVolumeByIdsRequest) returns (GetVolumeByIdsResponse){}
+  rpc GetVolumeByInstanceId(GetVolumeByInstanceIdRequest) returns (GetVolumeByInstanceIdResponse){}
+  rpc GetImageInfo(GetImageInfoRequest) returns (GetImageInfoResponse) {}
+  rpc GetImageVersionInfo(GetImageVersionInfoRequest) returns (GetImageVersionInfoResponse) {}
+  rpc GetImages(GetImagesRequest) returns (ImagePagingList) {}
+  rpc GetImageVersions(GetImageVersionsRequest) returns (ImageVersionPagingList) {}
+  rpc GetImageVersionByCustomer(GetImageVersionByCustomerRequest) returns (GetImageVersionByCustomerResponse) {}
+  rpc GetFlavorInfo(GetFlavorInfoRequest) returns (GetFlavorInfoResponse) {}
+  rpc GetVpcInfo(GetVpcInfoRequest) returns (GetVpcInfoResponse) {}
+  rpc GetKeypairInfo(GetKeypairInfoRequest) returns (GetKeypairInfoResponse) {}
+  rpc GetVlSnapshotInfo(GetVlSnapshotRequest) returns (GetVlSnapshotResponse) {}
+  rpc GetScheduleVlSnapshotInfo(GetScheduleVlSnapshotRequest) returns (GetScheduleVlSnapshotResponse) {}
+  rpc GetSecurityGroupInfo(GetSecurityGroupRequest) returns (GetSecurityGroupResponse) {}
+  rpc GetAllSecurityGroup(GetAllSecurityGroupRequest) returns (GetAllSecurityGroupResponse) {}
+  rpc CreateSecurityGroup(CreateSecurityGroupRequest) returns (CreateSecurityGroupResponse){}
+  rpc CreateSecurityGroupRule(CreateSecurityGroupRuleRequest) returns (GrpcSecurityGroupRuleInfo){}
+  rpc DeleteSecurityGroup(DeleteSecurityGroupRequest) returns (DeleteSecurityGroupResponse){}
+  rpc DeleteSecurityGroupRule(DeleteSecurityGroupRuleRequest) returns (DeleteSecurityGroupResponse){}
+
+  rpc GetVlSnapshotScheduleInfo(GetVlSnapshotScheduleInfoRequest) returns (GetVlSnapshotScheduleInfoResponse) {}
+  rpc GetBackupScheduleInfo(GetBackupScheduleInfoRequest) returns (GetBackupScheduleInfoResponse) {}
+  rpc GetBackupPackageInfo(GetBackupPackageInfoRequest) returns (GetBackupPackageInfoResponse) {}
+  rpc UpdateProcessIdSchedule(UpdateProcessIdScheduleRequest) returns (google.protobuf.Empty) {}
+  rpc UpdateStatusSchedule(UpdateStatusScheduleRequest) returns (google.protobuf.Empty) {}
+  rpc CheckQuotaVlSnapshot(CheckQuotaVlSnapshotRequest) returns (CheckQuotaVlSnapshotResponse) {}
+  rpc GetVpcQuotaUnused(GetVpcQuotaUnusedRequest) returns (GetVpcQuotaUnusedResponse) {}
+  rpc GetIpInfo(GetIpInfoRequest) returns (GetIpInfoResponse) {}
+  rpc GetIpByAddress(GetIpByAddressRequest) returns (GetIpInfoResponse) {}
+  rpc GetListIpsInfoByCustomer(GetListIpsInfoByCustomerRequest) returns (GetListIpsInfoByCustomerResponse) {}
+  rpc GetListIpsInfoByIds(GetListIpsInfoByIdsRequest) returns (GetListIpsInfoByIdsResponse) {}
+  rpc GetVolumeBackupInfo(GetVolumeBackupInfoRequest) returns (GetVolumeBackupInfoResponse) {}
+  rpc GetInstanceBackupInfo(GetInstanceBackupInfoRequest) returns (GetInstanceBackupInfoResponse) {}
+  rpc GetInstanceBackupDetail(GetInstanceBackupDetailRequest) returns (GetInstanceBackupDetailResponse) {}
+  rpc GetVlanInfo(GetVlanInfoRequest) returns (GetVlanInfoResponse) {}
+  rpc GetRouterInfo(GetRouterInfoRequest) returns (GetRouterInfoResponse) {}
+  rpc GetUserOSInfo(GetUserOSInfoRequest) returns (GetUserOSInfoResponse) {}
+  rpc GetShareFileStorageInfo(GetShareFileStorageInfoRequest) returns (GetShareFileStorageInfoResponse) {}
+  rpc GetShareSnapshotInfo(GetShareSnapshotInfoRequest) returns (GetShareSnapshotInfoResponse) {}
+  rpc GetLoadBalancerInfo(GetLoadBalancerInfoRequest) returns (GetLoadBalancerInfoResponse) {}
+  rpc GetIPsecPolicyInfo(GetIPsecPolicyInfoRequest) returns (GetIPsecPolicyInfoResponse) {}
+  rpc GetVpnServiceInfo(GetVpnServiceInfoRequest) returns (GetVpnServiceInfoResponse) {}
+  rpc GetEndpointGroupInfo(GetEndpointGroupInfoRequest) returns (GetEndpointGroupInfoResponse) {}
+  rpc GetIKEPolicyInfo(GetIKEPolicyInfoRequest) returns (GetIKEPolicyInfoResponse) {}
+  rpc GetVPNConnectionInfo(GetVPNConnectionInfoRequest) returns ( GetVPNConnectionInfoResponse) {}
+  rpc GetVpnSiteToSiteInfo(GetVpnSiteToSiteInfoRequest) returns (GetVpnSiteToSiteInfoResponse) {}
+  rpc GetSnapshotPackageInfo(GetSnapshotPackageInfoRequest) returns (GetSnapshotPackageInfoResponse) {}
+  rpc CheckValidServiceInfo(CheckValidServiceInfoRequest) returns (CheckValidServiceInfoResponse) {}
+  rpc GetProjectByUser(GetProjectByUserRequest) returns (GetProjectByUserResponse) {}
+
+  rpc CreateRouter(CreateRouterGrpcRequest) returns (CreateRouterGrpcResponse) {}
+  rpc CreateRouterInterface(CreateRouterInterfaceGrpcRequest) returns (CreateRouterInterfaceGrpcResponse) {}
+  rpc DeleteRouter(DeleteRouterGrpcRequest) returns (google.protobuf.Empty) {}
+  rpc DeleteRouterInterface(DeleteRouterInterfaceGrpcRequest) returns (google.protobuf.Empty) {}
+
+  rpc MarkSubnetUsedBy(MarkSubnetUsedByRequest) returns (google.protobuf.Empty) {}
+  rpc MarkRouterUsedBy(MarkRouterUsedByRequest) returns (google.protobuf.Empty) {}
+
+  rpc GetUserCredential(GetUserCredentialRequest) returns (GetUserCredentialResponse) {}
+  rpc GetEndpointInfo(GetEndpointInfoRequest) returns (GetEndpointInfoResponse) {}
+  rpc GetCloudBackupInfo(GetCloudBackupInfoRequest) returns (GetCloudBackupInfoResponse) {}
+
+  rpc CreateFlavor(CreateFlavorRequest) returns (CreateFlavorResponse) { }
+  rpc GetAllRegion(GetAllRegionRequest) returns (GetAllRegionResponse) { }
+  rpc CreateLoadBalancer(CreateLoadBalancerRequest) returns (CreateLoadBalancerResponse){}
+  rpc GetLoadBalancerProvider(GetLoadBalancerInfoRequest) returns(LoadBalancerResponse){}
+  rpc GetListener(ListenerRequest) returns(ListenerResponse){}
+  rpc GetObjectStorageActive(ObjectStorageRequest) returns(GetObjectStorageResponse){}
+  rpc GetUsageObjectStorage(GetUsageObjectStorageRequest) returns(ObjectStorageInfo){}
+  rpc DeleteVolumePublicApi(DeleteVolumePublicApiRequest) returns(DeleteVolumePublicApiResponse){}
+  rpc InstancesPublicApi(InstancesPublicApiRequest) returns(InstancesPublicApiResponse){}
+  rpc VolumeSnapshotsPublicApi(VolumeSnapshotsPublicApiRequest) returns(VolumeSnapshotsPublicApiResponse){}
+  rpc GetSubnetDefault(SubnetInfoRequest) returns(SubnetInfoResponse){}
+  rpc GetAllTierAttribute(GetAllTierAttributeRequest) returns(GetAllTierAttributeResponse){}
+  rpc CustomerProjects(CustomerProjectsRequest) returns(CustomerProjectsResponse){}
+  rpc GetListVlan(GetListVlanRequest) returns(GetListVlanResponse){}
+  rpc GetListVlanSubnet(GetListVlanSubnetRequest) returns(GetListVlanSubnetResponse){}
+  rpc GetProjectDefaultUser(GetProjectDefaultUserRequest) returns(GetVpcInfoResponse){}
+  rpc CreateBucket(CreateBucketRequest) returns(CreateBucketResponse){}
+  rpc GetUsageOfBucket(UsageOfBucketRequest) returns(GetUsageOfBucketResponse){}
+  rpc SetQuotaBucket(SetQuotaBucketRequest) returns(SetQuotaBucketResponse){}
+  rpc GetDataBucketUsage(GetBucketUsageRequest) returns(MonitorResponseRpc){}
+  rpc GetQuotaAllVpc(GetQuotaAllVpcRequest) returns(GetQuotaAllVpcResponse){}
+  rpc GetServerTierAttribute(ServerTierAttributeRequest) returns(ServerTierAttributeRespone){}
+  rpc SoftDelete(SoftDeleteServiceRequestRpc) returns(google.protobuf.Empty){}
+
+  rpc CreateIPFloating(CreateIPFloatingRequest) returns(CreateIPFloatingResponse){}
+  rpc AttachIpFloating(AttachIpFloatingRequest) returns(AttachIpFloatingResponse){}
+  rpc DetachIpFloating(DetachIpFloatingRequest) returns(DetachIpFloatingResponse){}
+  rpc DeleteIpFloating(DeleteIpFloatingRequest) returns(DeleteIpFloatingResponse){}
+}
+
+message GetInstanceInfoRequest{
+  int32 id = 1;
+  bool checkState = 2;
+  int32 customerId = 3;
+}
+message GetInstanceDetailRequest{
+  int32 id = 1;
+  int32 customerId = 2;
+  google.protobuf.StringValue ipPublic = 3;
+}
+
+message GetInstanceByIPPublicRequest{
+  repeated int32 id = 1;
+  int32 customerId = 2;
+  google.protobuf.StringValue ipPublic = 3;
+}
+
+message GetInstanceInfoResponse{
+  int32 Id = 1;
+  string instanceName = 2;
+  double cpu = 3;
+  double ram = 4;
+  int32 regionId = 5;
+  google.protobuf.StringValue regiontext = 6;
+  string IpPublic = 7;
+  google.protobuf.StringValue initPassword = 8;
+  int32 imageId = 9;
+  google.protobuf.Int32Value preResizeInstanceId = 10;
+  int32 flavorId = 11;
+  google.protobuf.StringValue keyPair = 12;
+  double storage = 13;
+  google.protobuf.Int32Value offerGpuId = 14;
+  google.protobuf.Int32Value gpuSize = 15;
+  google.protobuf.StringValue gpuType = 16;
+  string status = 17;
+  google.protobuf.Int32Value projectId = 18;
+  google.protobuf.Int32Value attributeTierId = 19;
+  google.protobuf.Int32Value volumeAttributeTierId = 20;
+  google.protobuf.Int32Value issuedOffer = 21;
+  google.protobuf.StringValue volumeType = 22;
+  string cloudId = 23;
+  google.protobuf.Timestamp CreateDate = 24;
+  google.protobuf.Int32Value dMBW = 25;
+  google.protobuf.Int32Value iTBW = 26;
+}
+
+message GetInstanceResizeHistoryResponse {
+  repeated GetInstanceInfoResponse Instances = 1;
+}
+
+
+message GetVolumeInfoRequest {
+  int32 id = 1;
+  bool checkState = 2;
+}
+
+message GetVolumeInfoResponse {
+  int32 Id = 1;
+  string volumeName = 2;
+  int32 sizeInGB = 3;
+  int32 regionId = 4;
+  string regiontext = 5;
+  int32 offerId = 6;
+  int32 projectId = 7;
+  int32 iops = 8;
+  string volumeType = 9;
+  bool bootable = 10;
+  string status = 11;
+  google.protobuf.Int32Value vmId = 12;
+  google.protobuf.Int32Value attributeTierId = 13;
+}
+
+message GetVolumeByInstanceIdRequest{
+  int32 instanceId = 1;
+}
+
+message GetVolumeByInstanceIdResponse{
+  repeated GetVolumeInfoResponse volumes = 1;
+}
+
+message GetImageInfoRequest {
+  int32 id = 1;
+}
+
+message GetImageInfoResponse {
+  int32 id = 1;
+  string name = 2;
+  int32 imageTypeId = 3;
+  string status = 4;
+  bool isLicense = 5;
+}
+
+message GetImageVersionInfoRequest {
+  int32 id = 1;
+}
+
+message GetImageVersionInfoResponse {
+  int32 id = 1;
+  int32 serviceType = 2;
+  string name = 3;
+  string displayName = 4;
+  int32 imageId = 5;
+  string cloudId = 6;
+  google.protobuf.Int32Value show = 7;
+  google.protobuf.Int32Value minCPU = 8;
+  google.protobuf.Int32Value minRAM = 9;
+  google.protobuf.Int32Value minStorage = 10;
+  google.protobuf.StringValue offerName = 11;
+  int32 regionId = 12;
+  google.protobuf.StringValue status = 13;
+  bool isLicense = 14;
+  google.protobuf.BoolValue isForAllUser = 15;
+  google.protobuf.Timestamp createTime = 16;
+  repeated int32 imageVersionPermissions = 17;
+  repeated ImageVersionEmailSmsTemp imageVersionEmailSmsTemps = 18;
+  google.protobuf.StringValue username = 19;
+}
+
+message GetImagesRequest {
+  int32 regionId = 1;
+  int32 pageSize = 2;
+  int32 currentPage = 3;
+}
+message ImagePagingList {
+  int32 totalCount = 1;
+  repeated GetImageResponse records = 2;
+  int32 pageSize = 3;
+  int32 currentPage = 4;
+}
+message GetImageResponse {
+  int32 id = 1;
+  string name = 2;
+  int32 imageTypeId = 3;
+  int32 regionId = 4;
+  string status = 5;
+  google.protobuf.StringValue imgBase64 = 6;
+  google.protobuf.Timestamp createTime = 7;
+  google.protobuf.StringValue description = 8;
+}
+
+message GetImageVersionsRequest {
+  int32 regionId = 1;
+  google.protobuf.Int32Value imageId = 2;
+  google.protobuf.Int32Value serviceType = 3;
+  int32 pageSize = 4;
+  int32 currentPage = 5;
+}
+message ImageVersionPagingList {
+  int32 totalCount = 1;
+  repeated GetImageVersionResponse records = 2;
+  int32 pageSize = 3;
+  int32 currentPage = 4;
+}
+message GetImageVersionResponse {
+  int32 id = 1;
+  int32 serviceType = 2;
+  string name = 3;
+  string displayName = 4;
+  int32 imageId = 5;
+  string cloudId = 6;
+  google.protobuf.Int32Value show = 7;
+  google.protobuf.Int32Value minCPU = 8;
+  google.protobuf.Int32Value minRAM = 9;
+  google.protobuf.Int32Value minStorage = 10;
+  google.protobuf.StringValue offerName = 11;
+  int32 regionId = 12;
+  google.protobuf.StringValue status = 13;
+  bool isLicense = 14;
+  google.protobuf.BoolValue isForAllUser = 15;
+  google.protobuf.Timestamp createTime = 16;
+  google.protobuf.StringValue username = 17;
+}
+message ImageVersionEmailSmsTemp {
+  int32 serviceActionType = 1;
+  string emailSmsTempKey = 2;
+}
+
+message GetImageVersionByCustomerRequest{
+  int32 customerId = 1;
+  int32 regionId = 2;
+}
+message GetImageVersionByCustomerResponse{
+  repeated GetImageVersion data = 1;
+}
+message GetImageVersion {
+  int32 id = 1;
+  int32 serviceType = 2;
+  string name = 3;
+  string displayName = 4;
+  int32 imageId = 5;
+  string cloudId = 6;
+  google.protobuf.Int32Value show = 7;
+  int32 regionId = 8;
+  google.protobuf.StringValue status = 9;
+  bool isLicense = 10;
+  google.protobuf.BoolValue isForAllUser = 11;
+  google.protobuf.Timestamp createTime = 12;
+}
+
+message GetFlavorInfoRequest {
+  int32 id = 1;
+  bool checkState = 2;
+}
+
+message GetFlavorInfoResponse {
+  int32 id = 1;
+  string name = 2;
+  int32 cpu = 3;
+  int32 ram = 4;
+  int32 hdd = 5;
+
+}
+
+message GetVpcInfoRequest{
+  int32 id = 1 ;
+}
+
+message GetVpcInfoResponse{
+  int32 Id = 1;
+  string CloudProjectName = 2;
+  google.protobuf.StringValue Description = 3;
+  string RegionText = 4;
+
+  google.protobuf.Int32Value QuotaBackupVolumeInGb = 9;
+  int32 QuotaSecurityGroupCount = 10;
+  google.protobuf.Int32Value QuotaKeypairCount = 11;
+  int32 QuotaIpPublicCount = 13;
+  int32 QuotaVLANCount = 14;
+  int32 QuotaRouterCount = 15;
+  google.protobuf.StringValue ResourceStatus = 17;
+  google.protobuf.Int32Value QuotaIPv6Count = 18;
+  google.protobuf.Int32Value QuotaShareInGb = 19;
+  google.protobuf.Int32Value QuotaShareSnapshotInGb = 20;
+  int32 RegionId = 21;
+  google.protobuf.Int32Value QuotaNetworkCount = 22;
+  string type = 23;
+  google.protobuf.Int32Value QuotaIpFloatingCount = 24;
+  google.protobuf.Int32Value VpnSiteToSiteOfferId = 26;
+  google.protobuf.StringValue DisplayName = 27;
+
+  google.protobuf.Int32Value QuotaK8sCpu = 30 ;
+  google.protobuf.Int32Value QuotaK8sRam = 31 ;
+  google.protobuf.Int32Value QuotaK8sStorage = 32 ;
+  google.protobuf.Int32Value QuotaMongoCpu = 33 ;
+  google.protobuf.Int32Value QuotaMongoRam = 34 ;
+  google.protobuf.Int32Value QuotaMongoStorage = 35 ;
+  google.protobuf.Int32Value QuotaKafkaCpu = 36 ;
+  google.protobuf.Int32Value QuotaKafkaRam = 37 ;
+  google.protobuf.Int32Value QuotaKafkaStorage = 38 ;
+  google.protobuf.Int32Value QuotaCloudBackup = 39 ;
+
+  repeated ProjectLoadbalancer ProjectLoadbalancers = 40;
+
+  google.protobuf.Timestamp CreateDate = 41;
+  google.protobuf.Timestamp ExpireDate = 42;
+  google.protobuf.Int32Value OfferId = 43;
+  repeated ProjectTier ProjectTiers = 44;
+
+  google.protobuf.Int32Value QuotaElastiCacheCpu = 45 ;
+  google.protobuf.Int32Value QuotaElastiCacheRam = 46 ;
+  google.protobuf.Int32Value QuotaElastiCacheStorage = 47 ;
+
+  google.protobuf.Int32Value QuotaSQLCpu = 48 ;
+  google.protobuf.Int32Value QuotaSQLRam = 49 ;
+  google.protobuf.Int32Value QuotaSQLStorage = 50 ;
+
+  google.protobuf.Int32Value QuotaK8sAddonElasticContainerRegistry = 51 ;
+  google.protobuf.Int32Value QuotaAPMStorage = 52 ;
+  google.protobuf.Int32Value QuotaCloudBackupS3 = 53 ;
+  google.protobuf.Int32Value QuotaObjectStorage = 54 ;
+  repeated ProjectGpu ProjectGpus = 55;
+  repeated ProjectGateway ProjectGateways = 56;
+
+  google.protobuf.Int32Value QuotaMySQLCpu = 57 ;
+  google.protobuf.Int32Value QuotaMySQLRam = 58 ;
+  google.protobuf.Int32Value QuotaMySQLStorage = 59 ;
+
+  google.protobuf.Int32Value QuotaPostgreSQLCpu = 60 ;
+  google.protobuf.Int32Value QuotaPostgreSQLRam = 61 ;
+  google.protobuf.Int32Value QuotaPostgreSQLStorage = 62 ;
+
+  google.protobuf.Int32Value QuotaOpenSearchCpu = 63 ;
+  google.protobuf.Int32Value QuotaOpenSearchRam = 64 ;
+  google.protobuf.Int32Value QuotaOpenSearchStorage = 65 ;
+  repeated SnapshotTierGrpc SnapshotTiers = 66;
+  google.protobuf.Int32Value QuotaBTTN = 67 ;
+  google.protobuf.Int32Value QuotaBTQT = 68 ;
+}
+
+message ProjectTier{
+  int32 id = 1;
+  google.protobuf.Int32Value offerId = 2;
+  google.protobuf.Int32Value quotavCpu = 3;
+  google.protobuf.Int32Value quotaRam = 4;
+  google.protobuf.Int32Value tierAttId = 5;
+  google.protobuf.Int32Value lastOfferId = 6;
+  google.protobuf.Int32Value quotaSddInGb = 8;
+  google.protobuf.Int32Value QuotaIpPublic = 9;
+  repeated ProjectVolumeTier projectVolumeTiers = 10;
+  repeated ProjectGpu ProjectGpus = 11;
+  google.protobuf.Int32Value quotaBTTN = 12;
+  google.protobuf.Int32Value quotaBTQT = 13;
+}
+
+message ProjectVolumeTier{
+  int32 id = 1;
+  google.protobuf.Int32Value quotaVolume = 2;
+  google.protobuf.Int32Value tierAttId = 3;
+  google.protobuf.Int32Value vmTierAttId = 4;
+}
+
+message ProjectLoadbalancer{
+  int32 id = 1;
+  int32 offerId = 2;
+  string offerName = 3;
+  int32 quantity = 4;
+  google.protobuf.StringValue cloudId = 5;
+}
+
+message ProjectGateway{
+  int32 id = 1;
+  int32 offerId = 2;
+  string offerName = 3;
+  int32 quantity = 4;
+}
+
+message ProjectGpu{
+  int32 id = 1;
+  int32 offerGpuId = 2;
+  string gpuType = 3;
+  int32 gpuCount = 4;
+  google.protobuf.StringValue cloudId = 5;
+}
+
+message SnapshotTierGrpc{
+  int32 tierAttId = 2;
+  int32 quotaInGb = 3;
+}
+
+message GetKeypairInfoRequest{
+  int32 id = 1 ;
+}
+
+message GetKeypairInfoResponse{
+  int32 id = 1;
+  string name = 2;
+  string fingerprint = 3;
+  string publicKey = 4;
+  int32 region = 5;
+  string regionText = 6;
+  string privateKey = 7;
+  int32 customerId = 8;
+  int32 projectId = 9;
+  string projectName = 10;
+}
+
+message GetVlSnapshotRequest{
+  int32 id = 1;
+}
+
+message GetVlSnapshotResponse{
+  int32 id = 1;
+  string name = 2;
+  int32 volumeId = 3;
+  int32 region = 4;
+  int32 projectId = 5;
+  int32 scheduleId = 6;
+  string status = 7;
+  int32 size = 8;
+}
+
+message GetScheduleVlSnapshotRequest{
+  int32 id = 1;
+}
+
+message GetScheduleVlSnapshotResponse{
+  int32 id = 1;
+  string name = 2;
+  int32 volumeId = 3;
+  int32 region = 4;
+  string status = 5;
+  string proccessId = 6;
+}
+
+message GetSecurityGroupRequest{
+  int32 userId = 1;
+  string securityGroupId = 2;
+  int32 regionId = 3;
+  int32 projectId = 4;
+}
+message GetSecurityGroupResponse{
+  string tenantId = 1;
+  int32 regionId = 2;
+  string id =3;
+  string name =4;
+  string description = 5;
+  repeated SecurityGroupRule rulesInfo = 6;
+}
+
+message SecurityGroupRule{
+  string Id = 1;
+  string RemoteGroupId =2;
+  string RemoteIpPrefix =3;
+  int32 PortRangeMax =4;
+  int32 PortRangeMin =5;
+  string Protocol =6;
+  string EtherType =7;
+  string Direction =8;
+  string SecurityGroupId =9;
+}
+
+message GetVlSnapshotScheduleInfoRequest{
+  int32 id = 1;
+}
+
+message GetVlSnapshotScheduleInfoResponse{
+  int32 id = 1;
+  string name = 2;
+  int32 serviceId = 3;
+  google.protobuf.Timestamp nextRuntime = 4;
+  int32 serviceType = 5;
+  string status = 6;
+  google.protobuf.Int32Value snapshotPackageId = 7;
+  google.protobuf.Int32Value snapshotType = 8;
+  google.protobuf.Int32Value customerId = 9;
+  google.protobuf.Int32Value projectId = 10;
+  google.protobuf.Int32Value regionId = 11;
+}
+
+message GetBackupScheduleInfoRequest{
+  int32 id = 1;
+}
+
+message GetBackupScheduleInfoResponse{
+  int32 id = 1;
+  string name = 2;
+  int32 serviceId = 3;
+  google.protobuf.Timestamp nextRuntime = 4;
+  int32 serviceType = 5;
+  string status = 6;
+  int32 processId = 7;
+  repeated BackupChildItem childItems = 8;
+  google.protobuf.Int32Value backupPackageId = 9;
+  int32 regionId = 10;
+  int32 projectId = 11;
+  int32 mode = 12;
+}
+
+message BackupChildItem{
+  int32 itemId = 1;
+  string itemType =2;
+}
+
+message UpdateProcessIdScheduleRequest{
+  int32 scheduleId = 1;
+  string processId = 2;
+}
+
+message UpdateStatusScheduleRequest{
+  int32 scheduleId = 1;
+  string status = 2;
+  string message = 3;
+}
+
+message CheckQuotaVlSnapshotRequest{
+  int32 volumeId = 1;
+  int32 customerId = 2;
+  int32 regionId = 3;
+  int32 projectId = 4;
+}
+
+message CheckQuotaVlSnapshotResponse{
+  bool success = 1;
+  string message = 2;
+}
+
+message GetVpcQuotaUnusedRequest{
+  int32 region = 1;
+}
+
+message GetVpcQuotaUnusedResponse{
+  int32 cpu = 1;
+  int32 ram = 2;
+  int32 hdd = 3;
+  int32 ssd = 4;
+  int32 ip = 5;
+}
+
+message GetBackupPackageInfoRequest{
+  int32 id = 1;
+}
+
+message GetBackupPackageInfoResponse{
+  int32 id = 1;
+  string packageName = 2;
+  int32 sizeInGB = 3;
+  int32 regionId = 4;
+  int32 customerId = 5;
+  int32 projectId = 6;
+}
+
+message GetIpByAddressRequest{
+  string ip = 1;
+  int32 customerId = 2;
+  string ipType = 3;
+}
+message GetIpInfoRequest{
+  int32 id = 1 ;
+}
+
+message GetIpInfoResponse{
+  int32 id = 1;
+  string ipAddress = 2;
+  string portCloudId = 3;
+  int32 attachedVmId = 4;
+  int32 region = 5;
+  string regionText = 6;
+  string ipv6Address = 7;
+  int32 customerId = 8;
+  int32 projectId = 9;
+  string projectName = 10;
+  google.protobuf.Timestamp expireDate = 11;
+  google.protobuf.Timestamp createDate = 12;
+  string typeIP = 13;
+  google.protobuf.StringValue status = 14;
+}
+
+message GetListIpsInfoByCustomerRequest{
+  int32 customerId = 1 ;
+}
+
+message GetListIpsInfoByCustomerResponse{
+  repeated GetIpInfoResponse ip = 1 ;
+}
+
+message GetListIpsInfoByIdsRequest{
+  repeated int32 ids = 1 ;
+}
+
+message GetListIpsInfoByIdsResponse{
+  repeated GetIpInfoResponse ips = 1 ;
+}
+
+message GetVolumeBackupInfoRequest{
+  int32 id = 1 ;
+}
+
+message GetVolumeBackupInfoResponse{
+  int32 id = 1;
+  string name = 2;
+  int32 size = 3;
+  string description = 4;
+  int32 volumeId = 5;
+  string cloudId = 6;
+  int32 region = 7;
+  int32 customerId = 8;
+  int32 instanceBackupId = 9;
+  bool isBootable = 10;
+  int32 iops = 11;
+  int32 offerId = 12;
+  string typeName = 13;
+  int32 cloudIdentity = 14;
+  string projectName = 15;
+  int32 projectId = 16;
+  int32 backupPackageId = 17;
+  string status = 18;
+}
+
+message GetInstanceBackupInfoRequest{
+  int32 id = 1 ;
+}
+
+message GetInstanceBackupInfoResponse{
+  int32 id = 1;
+  int32 scheduleId = 2;
+  string name = 3;
+  int32 instanceId = 4;
+  string description = 5;
+  int32 region = 6;
+  int32 cloudIdentity = 7;
+  string projectName = 8;
+  int32 projectId = 9;
+  string status = 10;
+  int32 backupPackageId = 11;
+  int32 size = 12;
+}
+
+message GetInstanceBackupDetailRequest{
+  int32 id = 1 ;
+}
+
+message GetInstanceBackupDetailResponse{
+  int32 id = 1;
+  int32 instanceId = 2;
+  int32 region = 3;
+  int32 cloudIdentity = 4;
+  int32 projectId = 5;
+  string status = 6;
+  int32 cpu = 7;
+  int32 ram = 8;
+  int32 volumeSize = 9;
+  google.protobuf.StringValue flavorName = 10;
+  google.protobuf.StringValue osName = 11;
+  google.protobuf.StringValue imageId = 12;
+}
+
+message GetVlanInfoRequest{
+  int32 id = 1;
+  int32 userId = 2;
+  int32 regionId = 3;
+  int32 projectId = 4;
+}
+
+message GetVlanInfoResponse{
+  int32 id = 1;
+  string cloudId = 2;
+  string name = 3;
+  int32 VlanId = 4;
+  string type = 5;
+  string subnetAddressRequired = 6;
+  string status = 7;
+  int32 vpcId = 8;
+  int32 regionId = 9;
+  string regionText = 10;
+}
+
+message GetRouterInfoRequest{
+  string routerId = 1;
+  int32 customerId = 2;
+  int32 regionId = 3;
+  int32 vpcId = 4;
+}
+
+message GetRouterInfoResponse{
+  string id = 1;
+  int32 customerId = 2;
+  int32 vpcId = 3;
+  int32 regionId = 4;
+  string routerName = 5;
+  google.protobuf.StringValue networkId = 6;
+}
+
+message GetUserOSInfoRequest{
+  int32 id = 1;
+}
+
+message GetUserOSInfoResponse{
+  int32 id = 1;
+  int32 quota = 2;
+  string userName = 3;
+  int32 regionId = 4;
+  int32 offerId = 5;
+  string osType = 6;
+  string configuration = 7;
+  string zone = 8;
+  string offerName = 9;
+  string objectType = 10;
+}
+
+message GetShareFileStorageInfoRequest{
+  int32 id = 1;
+  google.protobuf.BoolValue checkState = 2;
+  google.protobuf.Int32Value customerId = 3;
+}
+
+message GetShareFileStorageInfoResponse{
+  int32 id = 1;
+  int32 size = 2;
+  string name = 3;
+  int32 region = 4;
+  string regionText = 5;
+  google.protobuf.Int32Value projectId = 6;
+  google.protobuf.StringValue shareType = 7;
+  google.protobuf.StringValue protocol = 8;
+  google.protobuf.StringValue status = 9;
+  google.protobuf.Int32Value offerId = 10;
+}
+
+message GetShareSnapshotInfoRequest{
+  int32 id = 1;
+}
+
+message GetShareSnapshotInfoResponse{
+  int32 id = 1;
+  int32 size = 2;
+  string name = 3;
+  int32 region = 4;
+  google.protobuf.Int32Value projectId = 5;
+
+}
+
+message GetLoadBalancerInfoRequest{
+  int32 id = 1;
+}
+
+message GetLoadBalancerInfoResponse{
+  int32 id = 1;
+  string name = 2;
+  google.protobuf.StringValue description = 3;
+  string ipVip = 4;
+  int32 regionId = 5;
+  bool isFloatingIp = 6;
+  int32 offerId = 7;
+}
+
+message GetVpnServiceInfoRequest{
+  string id = 1;
+  int32 customerId = 2;
+  int32 regionId = 3;
+  int32 vpcId = 4;
+}
+
+message GetVpnServiceInfoResponse{
+  string id = 1;
+  string name = 2;
+}
+
+message GetIPsecPolicyInfoRequest{
+  string id = 1;
+  int32 customerId = 2;
+  int32 regionId = 3;
+  int32 vpcId = 4;
+}
+
+message GetIPsecPolicyInfoResponse{
+  string id = 1;
+  string name = 2;
+  int32 lifeTimeValue = 3;
+}
+
+message GetEndpointGroupInfoRequest{
+  string id = 1;
+  int32 customerId = 2;
+  int32 regionId = 3;
+  int32 vpcId = 4;
+}
+
+message GetEndpointGroupInfoResponse{
+  string id = 1;
+  string name = 2;
+  string type = 3;
+}
+
+message GetIKEPolicyInfoRequest{
+  string id = 1;
+  int32 customerId = 2;
+  int32 regionId = 3;
+  int32 vpcId = 4;
+}
+
+message GetIKEPolicyInfoResponse{
+  string id = 1;
+  string name = 2;
+}
+
+message GetVPNConnectionInfoRequest{
+  string id = 1;
+  int32 customerId = 2;
+  int32 regionId = 3;
+  int32 vpcId = 4;
+}
+
+message  GetVPNConnectionInfoResponse{
+  string id = 1;
+  string name = 2;
+}
+
+message GetVpnSiteToSiteInfoRequest{
+  int32 id = 1;
+}
+
+message GetVpnSiteToSiteInfoResponse{
+  int32 id = 1;
+  string offerName = 2;
+  string bandwidth = 3;
+  int32 regionId = 4;
+  int32 projectId = 5;
+}
+
+message GetSnapshotPackageInfoRequest{
+  int32 id = 1;
+}
+
+message GetSnapshotPackageInfoResponse{
+  int32 id = 1;
+  string packageName = 2;
+  int32 regionId = 5;
+  int32 customerId = 6;
+  int32 projectId = 7;
+  google.protobuf.StringValue status = 8;
+  repeated SnapshotTierGrpc SnapshotTiers = 9;
+}
+
+message CheckValidServiceInfoRequest{
+  string specification = 1;
+  google.protobuf.StringValue specificationType = 2;
+  google.protobuf.Int32Value orderProjectType = 3;
+  int32 orderType = 4;
+  google.protobuf.BoolValue isAdmin = 5;
+
+}
+
+message CheckValidServiceInfoResponse{
+  bool isValid = 1;
+  google.protobuf.StringValue errorMessage = 2;
+  repeated google.protobuf.StringValue listErrorMessage = 3;
+  google.protobuf.Int32Value hourTrial = 4;
+}
+
+message CreateRouterGrpcRequest{
+  int32 customerId = 1;
+  int32 projectId =2;
+  int32 regionId = 3;
+  bool adminState =4;
+  string routerName = 5;
+  string networkId =6;
+  string actorEmail = 7;
+
+}
+message CreateRouterGrpcResponse{
+  string cloudId = 1;
+  google.protobuf.StringValue routerName =2;
+  google.protobuf.BoolValue adminState =3;
+  google.protobuf.StringValue networkId =4;
+  google.protobuf.StringValue networkName =5;
+  google.protobuf.StringValue networkAddress =6;
+  google.protobuf.StringValue networkType =7;
+  google.protobuf.StringValue projectId =8;
+  google.protobuf.StringValue usedBy =9;
+  google.protobuf.BoolValue isUsed = 10;
+}
+
+message CreateRouterInterfaceGrpcRequest{
+  string routerId = 1;
+  int32  subnetId  = 2;
+  string iPAddress =3;
+  int32  regionId = 4;
+  string networkCustomer = 5;
+  int32 customerId = 6;
+  string actorEmail = 7;
+}
+
+message CreateRouterInterfaceGrpcResponse{
+  google.protobuf.StringValue cloudId = 1;
+  google.protobuf.StringValue subnetName =2;
+  google.protobuf.StringValue networkId =3;
+  google.protobuf.StringValue networkAddress = 4;
+  google.protobuf.StringValue subnetCIDR =5;
+  google.protobuf.StringValue subnetCloud =6;
+  google.protobuf.Int32Value regionId =7;
+  google.protobuf.StringValue routerId =8;
+  google.protobuf.StringValue ipAddress =9;
+  google.protobuf.StringValue networkCustomer =10;
+  google.protobuf.Int32Value subnetId =11;
+  google.protobuf.StringValue deviceOwner =12;
+}
+
+message DeleteRouterGrpcRequest{
+  int32 customerId = 1;
+  int32 projectId =2;
+  int32 regionId = 3;
+  string actorEmail = 4;
+  string id = 5;
+
+}
+
+message DeleteRouterInterfaceGrpcRequest{
+  string id = 1;
+  string  subnetId  = 2;
+  int32 projectId =3;
+  int32  regionId = 4;
+  string actorEmail = 5;
+  int32 customerId = 6;
+}
+
+message MarkSubnetUsedByRequest{
+  int32 id = 1;
+  google.protobuf.StringValue serviceName = 2;
+  google.protobuf.StringValue actorEmail = 3;
+  int32  customerId = 4;
+}
+
+message MarkRouterUsedByRequest{
+  string id = 1;
+  google.protobuf.StringValue serviceName = 2;
+  google.protobuf.StringValue actorEmail = 3;
+}
+
+message GetProjectByUserRequest{
+  int32 customerId = 1;
+}
+
+message GetProjectByUserResponse{
+  repeated ProjectDetail projects = 1;
+}
+
+message ProjectDetail{
+  int32 id = 1;
+  string name = 2;
+  string type = 3;
+  int32 regionId = 4;
+  string status = 5;
+}
+
+message GetVolumeByIdsRequest{
+  repeated int32 ids = 1;
+}
+
+message GetVolumeByIdsResponse{
+  repeated VolumeInfo volumes = 1;
+}
+
+message VolumeInfo{
+  int32 id = 1;
+  bool isBootable = 2;
+  string volumeName = 3;
+  int32 sizeInGB = 4;
+  string volumeType = 5;
+}
+
+message GetUserCredentialRequest{
+  int32 vpcId = 1;
+  int32 customerId = 2;
+}
+
+message GetUserCredentialResponse{
+  string userName = 1;
+  string password = 2;
+}
+
+message GetEndpointInfoRequest{
+  int32 id = 1;
+}
+
+message GetEndpointInfoResponse{
+  int32 id = 1;
+  google.protobuf.StringValue name = 2;
+  google.protobuf.StringValue username = 3;
+  google.protobuf.StringValue password = 4;
+  google.protobuf.StringValue email = 5;
+  google.protobuf.StringValue firstName = 6;
+  google.protobuf.StringValue lastName = 7;
+  google.protobuf.Int32Value quantity = 8;
+  google.protobuf.Int32Value duration = 9;
+  google.protobuf.Timestamp endDatePeriod = 10;
+  int32 customerId = 11;
+  google.protobuf.Int32Value offerId = 12;
+  google.protobuf.StringValue link = 13;
+}
+
+
+message GetCloudBackupInfoRequest{
+  int32 id = 1;
+}
+
+message CloudBackupStorage {
+  int32 id = 1;
+  string name = 2;
+  CloudBackupStorageType type = 3;
+  int32 oldQuota = 4;
+  int32 quota = 5;
+  google.protobuf.Timestamp createdDate = 6;
+}
+
+enum CloudBackupStorageType {
+  MSDP = 0;
+  ObjectStorage = 1;
+}
+
+message GetCloudBackupInfoResponse{
+  int32 id = 1;
+  google.protobuf.StringValue name = 2;
+  google.protobuf.Int32Value storage = 3;
+  google.protobuf.StringValue lic = 4;
+  google.protobuf.StringValue cloudIdVm = 5;
+  google.protobuf.StringValue cloudIdVolumeRoot = 6;
+  google.protobuf.StringValue cloudIdVolumeAttached = 7;
+  google.protobuf.StringValue ipPublic = 8;
+  google.protobuf.StringValue status = 9;
+  google.protobuf.Int32Value region = 10;
+  google.protobuf.Int32Value project = 11;
+  google.protobuf.Int32Value customerId = 12;
+  google.protobuf.StringValue description = 13;
+  google.protobuf.StringValue userPass = 14;
+  repeated CloudBackupStorage storages = 15;
+}
+
+message CreateFlavorRequest
+{
+  string name = 1;
+  int32 ram = 2;
+  int32 cpu = 3;
+  google.protobuf.Int32Value storage = 4;
+  google.protobuf.Int32Value gpuCount = 5;
+  google.protobuf.StringValue gpuType = 6;
+  google.protobuf.Int32Value attributeTierId = 7;
+  google.protobuf.Int32Value region = 8;
+  google.protobuf.Int32Value volumeAttributeTierId = 9;
+
+
+
+}
+
+message CreateFlavorResponse
+{
+  google.protobuf.StringValue name = 1;
+  google.protobuf.StringValue cloudId = 2;
+}
+
+message RegionResponse
+{
+  int32 regionId = 1;
+  string regionText = 2;
+}
+
+message GetAllRegionRequest
+{
+}
+
+message GetAllRegionResponse
+{
+  repeated RegionResponse region = 1;
+}
+message CreateLoadBalancerRequest{
+  int32 regionId = 1;
+  google.protobuf.StringValue name = 2;
+  google.protobuf.Int32Value customerId = 3;
+  google.protobuf.Int32Value projectId = 4;
+  bool isFloatingIp = 5;
+  google.protobuf.StringValue ipAddress = 6;
+  google.protobuf.StringValue subnetId = 7;
+  google.protobuf.StringValue description = 8;
+  int32 offerId = 9;
+}
+message CreateLoadBalancerResponse{
+  google.protobuf.StringValue cloudId = 1;
+  int32 id = 2;
+  google.protobuf.StringValue errorMessage = 3;
+}
+message LoadBalancerResponse{
+  int32 id = 1;
+  google.protobuf.StringValue name = 2;
+  google.protobuf.StringValue cloudId = 3;
+  google.protobuf.StringValue status = 4;
+  google.protobuf.StringValue provisionStatus = 5;
+  google.protobuf.StringValue operatingStatus = 6;
+  google.protobuf.StringValue ipVip = 7;
+  google.protobuf.StringValue description = 8;
+  int32 offerId = 9;
+}
+message ListenerRequest{
+  int32 loadbalancerId = 1;
+  google.protobuf.StringValue listenerCloudId = 2;
+}
+message ListenerResponse{
+  google.protobuf.StringValue name = 2;
+}
+message ObjectStorageResponse{
+  google.protobuf.StringValue userName = 1;
+  int32 id = 2;
+  google.protobuf.StringValue userId = 3;
+  int32 regionId = 4;
+  google.protobuf.StringValue status = 5;
+  double overageConfig = 6;
+  int32 customerId = 7;
+}
+message GetObjectStorageResponse{
+  repeated ObjectStorageResponse objectStorage = 1;
+}
+message ObjectStorageRequest{
+  int32 id = 1;
+}
+message ObjectStorageInfo{
+  google.protobuf.StringValue total = 1;
+  double used = 2;
+  google.protobuf.StringValue percentUsage = 3;
+}
+message GetUsageObjectStorageRequest{
+  int32 id = 1;
+  int32 regionId = 2;
+}
+
+message DeleteVolumePublicApiRequest{
+  int32 id = 1;
+  int32 customerId = 2;
+  string actorEmail = 3;
+}
+message DeleteVolumePublicApiResponse{
+  bool result = 1;
+}
+
+message ItemIntPublicApi{
+  int32 id = 1;
+  string name = 2;
+}
+
+message InstancesPublicApiRequest{
+  int32 projectId = 1;
+  int32 customerId = 2;
+  int32 regionId = 3;
+}
+message InstancesPublicApiResponse{
+  repeated ItemIntPublicApi result = 1;
+}
+
+message VolumeSnapshotsPublicApiRequest{
+  int32 projectId = 1;
+  int32 customerId = 2;
+  int32 regionId = 3;
+}
+message VolumeSnapshotsPublicApiResponse{
+  repeated ItemIntPublicApi result = 1;
+}
+
+message GetAllTierAttributeRequest{
+  google.protobuf.Int32Value serviceType = 1;
+  google.protobuf.Int32Value regionId = 2;
+}
+
+message GetAllTierAttributeResponse{
+  repeated TierAttributeInfo tierAtts = 1;
+}
+
+message TierAttributeInfo{
+  int32 id = 1;
+  string name = 2;
+  google.protobuf.Int32Value serviceType = 3;
+  google.protobuf.Int32Value regionId = 4;
+  google.protobuf.StringValue serverTierName = 5;
+  google.protobuf.Int32Value serverTierId = 6;
+  google.protobuf.StringValue metaData = 7;
+}
+
+message GetInstanceStatusPrometheusRequest{
+  string cloudId = 1;
+  google.protobuf.Timestamp startDate = 2;
+  google.protobuf.Timestamp endDate = 3;
+}
+
+message GetInstanceStatusPrometheusResponse{
+  repeated PrometheusStatusResponse result = 1;
+}
+
+message PrometheusStatusResponse{
+  google.protobuf.Timestamp startTime = 1;
+  google.protobuf.Timestamp endTime = 2;
+  bool IsOn = 3;
+  bool IsOff = 4;
+}
+
+message CustomerProjectsRequest{
+  int32 customerId = 1;
+}
+message CustomerProjectsResponse{
+  repeated CustomerProject result = 1;
+}
+
+message CustomerProject{
+  int32 id = 1;
+  string name = 2;
+  int32 regionId = 3;
+  string regionText = 4;
+}
+message SubnetInfoResponse{
+  int32 id = 1;
+  string subnetCloudId = 2;
+  string name = 3;
+  string subnetAddressRequired = 4;
+  int32 vpcId = 5;
+  string networkCloudId = 6;
+}
+message SubnetInfoRequest{
+  int32 id = 1;
+  int32 customerId = 2;
+  int32 regionId = 3;
+  int32 vpcId = 4;
+}
+
+message GetListVlanRequest{
+  google.protobuf.Int32Value regionId = 1;
+  google.protobuf.Int32Value projectId = 2;
+  int32 customerId = 3;
+}
+
+message GrpcVlanInfo{
+  google.protobuf.StringValue SubnetCloudId = 1;
+  google.protobuf.Int32Value CustomerId = 2;
+  google.protobuf.StringValue Address = 3;
+  google.protobuf.BoolValue RouterExternal = 4;
+  google.protobuf.StringValue VpcName = 5;
+  int32 Id =6;
+  google.protobuf.StringValue CloudId =7;
+  google.protobuf.StringValue Name =8;
+  google.protobuf.Int32Value VlanId =9;
+  google.protobuf.BoolValue AdminState =10;
+  google.protobuf.BoolValue Shared =11;
+  google.protobuf.StringValue Type =12;
+  google.protobuf.StringValue SubnetAddressRequired =13;
+  google.protobuf.StringValue Status =14;
+  google.protobuf.Int32Value VpcId =15;
+  google.protobuf.Int32Value Region =16;
+  google.protobuf.StringValue RegionText =17;
+  repeated GrpcVlanSubnetInfo Subnets =18;
+  google.protobuf.StringValue VpcShare =19;
+  google.protobuf.Int32Value ParentId =20;
+  google.protobuf.BoolValue WanShare =21;
+}
+
+message GetListVlanResponse{
+  repeated GrpcVlanInfo vlans = 1;
+}
+
+message GetListVlanSubnetRequest{
+  google.protobuf.Int32Value customerId = 1;
+  google.protobuf.Int32Value regionId = 2;
+  google.protobuf.Int32Value projectId = 3;
+  google.protobuf.Int32Value networkId = 4;
+  google.protobuf.StringValue networkCloudId = 5;
+}
+
+message GrpcVlanSubnetInfo{
+  google.protobuf.Int32Value Id =1;
+  google.protobuf.StringValue Name =2;
+  google.protobuf.StringValue SubnetCloudId =3;
+  google.protobuf.Int32Value IPVerison =4;
+  google.protobuf.StringValue NetworkCloudId =5;
+  google.protobuf.Int32Value CustomerId =6;
+  google.protobuf.StringValue MayAoGan =7;
+  google.protobuf.Int32Value NetworkId =8;
+  repeated GrpcVpcSubnetAllocationPool AllocationPools =9;
+  repeated GrpcVpcRouteConfig HostRouters =10;
+  google.protobuf.BoolValue EnableDhcp =11;
+  google.protobuf.StringValue NetworkName =12;
+  google.protobuf.StringValue GatewayIp =13;
+  google.protobuf.StringValue UsedBy =14;
+  google.protobuf.StringValue NetworkAddress =15;
+  google.protobuf.StringValue DnsNameServer =16;
+  google.protobuf.StringValue Status =17;
+  google.protobuf.Int32Value ParentId =18;
+  google.protobuf.StringValue CloudId =19;
+}
+
+message GetListVlanSubnetResponse{
+  repeated GrpcVlanSubnetInfo vlansubnets = 1;
+}
+
+message GrpcVpcSubnetAllocationPool{
+  google.protobuf.StringValue Start =1;
+  google.protobuf.StringValue End =2;
+}
+message GrpcVpcRouteConfig{
+  google.protobuf.StringValue DestinationCidr =1;
+  google.protobuf.StringValue NextHop =2;
+}
+
+message GetProjectDefaultUserRequest{
+  int32 customerId = 1;
+  int32 regionId = 2;
+}
+message CreateBucketRequest{
+  string bucketName = 1;
+  int32 osId = 2;
+  string type = 3;
+}
+message CreateBucketResponse{
+  google.protobuf.StringValue bucketName = 1;
+  google.protobuf.StringValue errorMessage = 2;
+}
+message UsageOfBucketRequest{
+  string bucketName = 1;
+  int32 osId = 2;
+}
+message GetUsageOfBucketResponse{
+  google.protobuf.StringValue usage = 1;
+  google.protobuf.StringValue errorMessage = 2;
+}
+message SetQuotaBucketRequest{
+  string bucketName = 1;
+  int32 osId = 2;
+  int64 quotaInKb = 3;
+}
+message SetQuotaBucketResponse{
+  bool isSuccess = 1;
+  google.protobuf.StringValue errorMessage = 2;
+}
+message MonitorDataRpc {
+  int64 time_span = 1;
+  string value = 2;
+}
+message MonitorResponseRpc {
+  string title = 1;
+  int64 start_date = 2;
+  int64 end_date = 3;
+  int32 step = 4;
+  repeated MonitorDataRpc datas = 5;
+}
+message GetBucketUsageRequest{
+  string bucketName = 1;
+  int32 osId = 2;
+  int32 step = 3;
+  int32 timeHours = 4;
+}
+
+message CreateSecurityGroupRequest{
+  int32 UserId = 1;
+  string Name = 2;
+  google.protobuf.StringValue Description = 3;
+  int32 RegionId = 4;
+  int32 ProjectId = 5;
+  google.protobuf.StringValue ActorEmail = 6;
+}
+
+message CreateSecurityGroupResponse{
+  string TenantId =1;
+  int32 RegionId =2;
+  google.protobuf.StringValue Id =3;
+  google.protobuf.StringValue Name =4;
+  google.protobuf.StringValue Description =5;
+  repeated GrpcSecurityGroupRuleInfo RulesInfo = 6;
+}
+
+message GrpcSecurityGroupRuleInfo{
+  string Id =1;
+  google.protobuf.StringValue RemoteGroupId =2;
+  google.protobuf.StringValue RemoteIpPrefix =3;
+  google.protobuf.Int32Value PortRangeMax =4;
+  google.protobuf.Int32Value PortRangeMin =5;
+  google.protobuf.StringValue Protocol =6;
+  google.protobuf.StringValue EtherType =7;
+  google.protobuf.StringValue Direction =8;
+  google.protobuf.StringValue SecurityGroupId =9;
+  google.protobuf.StringValue PortRange = 10;
+  google.protobuf.StringValue RemoteIp= 11;
+}
+
+message DeleteSecurityGroupRequest{
+  string Id =1;
+  int32 UserId =2;
+  int32 RegionId =3;
+  int32 ProjectId =4;
+  google.protobuf.StringValue ActorEmail =5;
+}
+
+message DeleteSecurityGroupResponse{
+  bool isSuccess = 1;
+}
+
+message CreateSecurityGroupRuleRequest{
+  google.protobuf.StringValue RemoteType = 1;
+  google.protobuf.StringValue Rule = 2;
+  google.protobuf.StringValue RemoteGroupId = 3;
+  google.protobuf.StringValue RemoteIpPrefix = 4;
+  google.protobuf.Int32Value PortRangeMin = 5;
+  google.protobuf.StringValue SecurityGroupId = 6;
+  google.protobuf.Int32Value PortRangeMax = 7;
+  google.protobuf.StringValue EtherType = 8;
+  google.protobuf.StringValue Protocol = 9;
+  google.protobuf.StringValue Direction = 10;
+  int32 Region = 11;
+  int32 UserId = 12;
+  int32 ProjectId = 13;
+  google.protobuf.StringValue ActorEmail = 14;
+}
+
+message DeleteSecurityGroupRuleRequest{
+  string Id =1;
+  int32 UserId =2;
+  int32 RegionId =3;
+  int32 ProjectId =4;
+  google.protobuf.StringValue ActorEmail =5;
+}
+
+message GetAllSecurityGroupRequest{
+  int32 UserId =1;
+  int32 RegionId =2;
+  int32 ProjectId =3;
+}
+
+message GetAllSecurityGroupResponse{
+  repeated GetSecurityGroupResponse securityGroups = 1;
+}
+
+message GetQuotaAllVpcRequest{
+  int32 regionId = 1;
+}
+
+message GetQuotaAllVpcResponse{
+  repeated VpcTierQuota vpcQuota = 1;
+}
+message VpcTierQuota{
+  google.protobuf.Int32Value tierAttId = 1;
+  google.protobuf.StringValue tierAttName = 2;
+  double quota = 3;
+  double used = 4;
+  string type = 5;
+}
+message ServerTierAttributeRespone{
+  int32 id = 1;
+  int32 serverTierId = 2;
+  string name = 3;
+}
+message ServerTierAttributeRequest{
+  int32 id = 1;
+}
+message SoftDeleteServiceRequestRpc {
+  int32 serviceId = 1;
+  int32 serviceType = 2;
+  int32 customerId = 3;
+  string actorEmail = 4;
+}
+
+message CreateIPFloatingRequest{
+  int32 customerId = 1;
+  int32 projectId = 2;
+  int32 regionId = 3;}
+
+message CreateIPFloatingResponse{
+  string cloudId = 1;
+  string IPAddress = 2;
+}
+
+message AttachIpFloatingRequest{
+  int32 customerId = 1;
+  string cloudId = 2;
+  string portId = 3;
+  int32 regionId = 4;
+  int32 projectId = 5;
+}
+
+message AttachIpFloatingResponse{
+  bool result = 1;
+}
+
+message DetachIpFloatingRequest{
+  int32 customerId = 1;
+  string cloudId = 2;
+  int32 regionId = 3;
+  int32 projectId = 4;
+}
+
+message DetachIpFloatingResponse{
+  bool result = 1;
+}
+
+message DeleteIpFloatingRequest{
+  int32 customerId = 1;
+  string cloudId = 2;
+  int32 regionId = 3;
+  int32 projectId = 4;
+}
+
+message DeleteIpFloatingResponse{
+  bool result = 1;
+}
