@@ -1,4 +1,4 @@
-package com.vnpt.oneportal.provisionrestapi.dto;
+package com.vnpt.oneportal.provisionrestapi.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,15 +9,18 @@ import java.util.List;
 
 @Data
 @Builder
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 public class VlanResponse {
     private String subnetCloudId;
     private Integer customerId;
     private String address;
     private Boolean routerExternal;
     private String vpcName;
-    private String vlanId;
+    private Integer id;
+    private String cloudId;
+    private String name;
+    private Integer vlanId;
     private Boolean adminState;
     private Boolean shared;
     private String type;
@@ -26,9 +29,30 @@ public class VlanResponse {
     private Integer vpcId;
     private Integer region;
     private String regionText;
-    private List<VlanSubnetResponse> subnets;
+    private List<SubnetDto> subnets;
     private String vpcShare;
     private Integer parentId;
     private Boolean wanShare;
 
+    @Data
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class SubnetDto {
+        private Integer id;
+        private String name;
+        private String networkAddress;
+        private Integer ipVersion;
+        private String gatewayIp;
+        private Boolean enableDHCP;
+        private String dnsNameServer;
+        private String cloudId;
+        private String status;
+        private Integer networkId;
+        private String networkCloudId;
+        private String usedBy;
+        private Integer parentId;
+        private List<VlanSubnetResponse.AllocationPoolDto> allocationPools;
+        private List<VlanSubnetResponse.HostRouterDto> hostRouters;
+    }
 }
